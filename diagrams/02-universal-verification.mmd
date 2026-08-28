@@ -1,0 +1,14 @@
+---
+title: Universal verification rule — every instrument (nomination, proxy, pre-vote, registration)
+---
+flowchart TD
+    A["Instrument received by email<br/>(nomination / proxy / pre-vote / registration)"] --> B["Log in Inbox sheet<br/>timestamp · sender · lot · type"]
+    B --> C{"Sender address =<br/>lot's registered email?"}
+    C -- "Yes — GREEN LANE" --> ACC["Accept instrument"]
+    C -- "No — AMBER LANE<br/>(incl. any bulk / third-party submission)" --> CH["Challenge email sent to the<br/>lot's registered address:<br/>reply CONFIRM or DENY"]
+    CH --> R{"Owner's reply<br/>before deadline?"}
+    R -- "CONFIRM" --> ACC
+    R -- "DENY" --> REJ["Reject instrument"]
+    R -- "No reply" --> REJ
+    ACC --> ACK["Acknowledge by reply email ·<br/>enter in relevant register sheet"]
+    REJ --> RC["Reason code in Flags sheet ·<br/>notify sender AND registered address<br/>(no silent exclusion — ever)"]

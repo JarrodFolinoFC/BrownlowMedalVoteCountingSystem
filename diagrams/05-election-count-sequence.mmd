@@ -1,0 +1,24 @@
+---
+title: The election count, start to finish — who does what (chair never touches the workbook)
+---
+sequenceDiagram
+    autonumber
+    participant CH as Chair
+    participant PT as Participants (owners & proxies)
+    participant RO as Returning Officer (screen-sharing Excel)
+    participant SC as Scrutineers (one per side)
+
+    CH->>PT: Reads the verified candidate list (name, lot, owner/proxy basis) + any live-checked oral nominations
+    CH->>PT: States the tie-break method, then opens the 5-minute ballot window
+    PT->>PT: Type ballots in chat — "Lot 304: CARSON (507), CHIN (C9), XU (206)" — up to 7 candidates
+    Note over PT: The chat message IS the public ballot — visible to all, attributed, timestamped
+    RO->>RO: Keys each ballot into VoteTally on the shared screen as it arrives
+    RO-->>PT: Prompts in chat on any defect (>7 names, unrecognised name) — voter resubmits within the window
+    SC-->>RO: Cross-check chat vs sheet in real time
+    SC-->>CH: "Point of order" in chat if an entry is wrong or missed
+    PT->>CH: Voice fallback (phone-only): "Lot 105 - Carson, Chin, Xu" — chair repeats back, RO enters flagged "voice vote"
+    CH->>PT: Closes the window
+    RO->>SC: Reconciliation pause (~5 min) — sheet vs chat confirmed, defects finalised
+    SC->>CH: Confirm tally matches the chat
+    CH->>PT: Announces EVERY candidate's total (by entitlement if poll demanded), the 7 elected, any provisional ballots
+    CH->>PT: If the 7th seat ties: immediate runoff between tied candidates (2-min window, one name per lot)

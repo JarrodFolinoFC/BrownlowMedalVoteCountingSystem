@@ -1,0 +1,18 @@
+---
+title: Proxy verification pipeline (ss 89B–89F; reg 8, Sched 1)
+---
+flowchart TD
+    P["Proxy form received<br/>(deadline: 5pm, 2 business days before AGM;<br/>at-meeting delivery = provisional until verified)"] --> V{"Grantor identity verified?<br/>(green / amber lane)"}
+    V -- No --> X["Not operative<br/>reason code · grantor notified"]
+    V -- Yes --> F1{"Prescribed form (Sched 1):<br/>complete · signed · dated ·<br/>names an individual?"}
+    F1 -- No --> X
+    F1 -- Yes --> F2{"Current?<br/>dated within 12 months,<br/>no earlier expiry — s 89C(6)"}
+    F2 -- No --> X
+    F2 -- Yes --> F3{"Holder in arrears?<br/>s 89C(10)"}
+    F3 -- "Yes — holder barred" --> X
+    F3 -- No --> F4{"Holder within 5% cap?<br/>s 89D (family / multi-lot<br/>exceptions, reg 8A)"}
+    F4 -- "Over cap" --> OF["Counted in order of verified receipt<br/>up to cap · excess grantors notified<br/>so they can attend or re-appoint"]
+    F4 -- Yes --> OP["OPERATIVE PROXY<br/>entered in Proxies register"]
+    OF --> X
+    OP --> FL["Per-motion flags carried into VoteTally:<br/>• grantor arrears → lot barred on<br/>ordinary resolutions (s 89B)<br/>• non-owner holder → barred on manager /<br/>delegation motions affecting them (s 89C(7))"]
+    OP -.-> RV["Inoperative if: owner attends (s 89E) ·<br/>written revocation · later-dated<br/>verified instrument"]
